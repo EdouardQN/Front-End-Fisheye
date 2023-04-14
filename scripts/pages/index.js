@@ -28,18 +28,23 @@
 
     async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
+        //DOM CSS pour la section photographe
+        console.log(photographersSection);
 
         photographers.forEach((photographer) => {
             const photographerModel = photographerFactory(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
+            const userCardDOM = photographerModel.getUserCardDOM(); //récupère le dom créé pour un photographe (factories)
+            console.log(userCardDOM);
             photographersSection.appendChild(userCardDOM);
+            
         });
     };
 
     async function init() {
-        // Récupère les datas des photographes
+        // Récupère les datas des photographes (remplacé ensuite par le JSON)
         const { photographers } = await getPhotographers();
         displayData(photographers);
+        console.log(photographers);
     };
     
     init();
