@@ -1,29 +1,25 @@
 function photographerFactory(data) {
 
-    // console.log(data);
-    // let tabPhotographers = [];
-    // for ( let i=0; i< data.length; i++){
-    //     tabPhotographers.push(data.photographers[i]);
-    //     console.log(tabPhotographers[i]);
-    // }
-    // console.log(tabPhotographers);
+        console.log("data", data);
 
-        const name = data.photographers[0].name;
-        const portrait = data.photographers[0].portrait;
+        const name = data.name;
+
+        const portrait = data.portrait;
         const picture = `../../assets/photographers/${portrait}`;
-        const city = data.photographers[0].city;
-        const country = data.photographers[0].country;
-        const tagline = data.photographers[0].tagline;
-        const price = data.photographers[0].price;
-        console.log(name);
+        const city = data.city;
+        const country = data.country;
+        const tagline = data.tagline;
+        const price = data.price;
+        // console.log(name);
     
 
 
     function getUserCardDOM() {
+    
         const article = document.createElement( 'article' );
         const img = document.createElement( 'img' );
-        img.setAttribute("src", picture)
-
+        img.setAttribute("src", picture);
+        console.log(name);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
 
