@@ -1,7 +1,5 @@
 function photographerFactory(data) {
 
-        // console.log("data", data);
-
         const name = data.name;
         const id = data.id;
         const portrait = data.portrait;
@@ -10,9 +8,6 @@ function photographerFactory(data) {
         const country = data.country;
         const tagline = data.tagline;
         const price = data.price;
-        // console.log(name);
-    
-
 
     function getUserCardDOM() {
     

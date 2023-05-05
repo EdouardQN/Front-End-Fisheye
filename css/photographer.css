@@ -1,11 +1,65 @@
-#contact_modal {
-    display: none;
-}
+/* Photographer Header */
 
 .photograph-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+}
+
+.photograph-content{
+    order: -1;
+}
+
+.photograph-header .photograph-content h2{
+    color: #D3573C;
+    font-size: 50px;
+    margin: 16px 0;
+}
+
+.photograph-header .photograph-content h4{
+    color: #901C1C;
+    font-size: 24px;
+    margin: 14px 0;
+}
+
+.photograph-header .photograph-content span{
+    color : #525252;
+}
+
+.photograph-header .photograph-img img{
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0px 3px 12px 3px #525252;
+    -webkit-box-shadow: 0px 3px 12px 3px #525252;
+    -moz-box-shadow: 0px 3px 12px 3px #525252;
+}
+
+/* Photographer galery */
+
+.photograph-galery{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    gap: 64px;
+    justify-content: space-between;
+    margin : 0 100px;
+}
+
+.photograph-media{
+    background-color: red;
+    height: 250px;
+}
+
+
+
+/* Contact form */
+
+#contact_modal {
+    display: none;
 }
 
 .contact_button {
