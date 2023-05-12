@@ -49,11 +49,28 @@
     margin : 0 100px;
 }
 
-.photograph-media{
-    background-color: red;
+.photograph-image,
+.photograph-video{
+    background-color: gray;
     height: 250px;
 }
 
+.photograph-details{
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    padding: 12px 20px;
+    gap: 24px;
+    border-radius: 4px 4px 0 0;
+    background-color: #DB8876;
+    display: flex;
+    justify-content: space-evenly;
+}
+.photograph-nbLikes{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 
 
 /* Contact form */

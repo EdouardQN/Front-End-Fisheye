@@ -15,13 +15,14 @@
       <div class="photograph-header">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
-      <div class="photograph-galery">
-        <div class="photograph-media"></div>
-        <div class="photograph-media"></div>
-        <div class="photograph-media"></div>
-        <div class="photograph-media"></div>
-        <div class="photograph-media"></div>
-
+      <div class="photograph-galery"></div>
+      <div class="photograph-details">
+        <div class="photograph-nbLikes">
+          <span class="photograph-likes"></span>
+          <ion-icon name="heart"></ion-icon>
+        </div>
+        <span class="photograph-tarif"></span>
+      
 
       </div>
     </main>
@@ -40,6 +41,12 @@
 				</form>
 			</div>
 		</div>
+
+    <!-- Ion Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
