@@ -44,15 +44,21 @@
 .photograph-galery{
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
-    gap: 64px;
+    gap: 48px;
     justify-content: space-between;
-    margin : 0 100px;
+    margin : 64px 100px;  /* à modifier */
 }
-
+/* 
 .photograph-image,
 .photograph-video{
     background-color: gray;
     height: 250px;
+} */
+
+.photograph-image img,
+.photograph-video video{
+    cursor: pointer;
+
 }
 
 .photograph-details{
@@ -70,6 +76,27 @@
     display: flex;
     align-items: center;
     gap: 4px;
+}
+
+.media-details{
+    display: flex;
+    height: 8%;
+    justify-content: space-between;
+    align-items: center;
+    color: #901C1C;
+    font-size: 12px;
+}
+
+.media-details span{
+    margin-left: auto;
+}
+
+
+.media-details button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #901C1C;
 }
 
 
