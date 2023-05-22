@@ -13,7 +13,7 @@
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button">Contactez-moi</button>
       </div>
       <div class="photograph-galery"></div>
       <div class="photograph-details">
@@ -22,25 +22,28 @@
           <ion-icon name="heart"></ion-icon>
         </div>
         <span class="photograph-tarif"></span>
-      
-
       </div>
-    </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
+
+      <dialog class="modal" role="dialog" aria-describedby="modalForm">
+        <header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" alt="close icon" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" alt="close icon" class="close_modal"/>
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
+        <form method="div" class="contactForm" onsubmit="sendData()">
+          <div>
+            <label for="nom">Nom</label>
+            <input type="text" name="nom" id="nom" aria-labelledby="nom"/>
+            <label for="prenom">Prénom </label>
+            <input type="text" name="prenom" id="prenom" aria-labelledby="prenom"/>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" aria-labelledby="email"/>
+            <label for="message">Votre message</label>
+            <textarea rows="4" cols="50" name="message" id="message" aria-labelledby="message"></textarea>
+          </div>
+          <button class="submit_button">Envoyer</button>
+        </form>
+      </dialog>
+    </main>
 
     <!-- Ion Icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
