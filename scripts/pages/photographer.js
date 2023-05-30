@@ -150,6 +150,7 @@ function mediaFactory(media){
             divMediaDetails[i] = document.createElement('div');
             divMediaDetails[i].classList.add('media-details');
             displayMedia.setAttribute("src", sample);
+            displayMedia.setAttribute("onclick", `openModal();currentSlide(${i})`);
             displayMedia.setAttribute("style", "object-fit:cover; width:250px; height:250px");
             divMediaDetails[i].appendChild(headingMedia[i]);
             divMediaDetails[i].appendChild(spanMedia[i]);
@@ -167,13 +168,79 @@ function mediaFactory(media){
         return likes;
     }
 
-    return {tabMedia, nbLikes, factory, getPhotographerDomMedia, getPhotographerLikes};
+    return {tabMedia, nbLikes, factory, sample, getPhotographerDomMedia, getPhotographerLikes};
+}
+
+
+// Lightbox
+function getLightboxDom(mediaDom){
+    console.log(mediaDom);
+    let src;
+    let divLightbox = [];
+    let mediaLightbox;
+    for (let i=0; i<mediaDom.length; i++){
+
+        divLightbox[i] = document.createElement('div');
+        divLightbox[i].classList.add('mySlides');
+
+        if (mediaDom[i].firstChild.hasAttribute('controls')){
+            src = mediaDom[i].firstChild.attributes[1].value;
+            mediaLightbox = document.createElement('video');
+        }
+        else{
+            src = mediaDom[i].firstChild.attributes[0].value;
+            mediaLightbox = document.createElement('img');
+
+        }
+        mediaLightbox.classList.add('media_inside');
+        mediaLightbox.setAttribute('src', src);
+        mediaLightbox.style.width = '100%';
+        divLightbox[i].append(mediaLightbox);
+    }
+    return (divLightbox);
+}
+
+function openModal() {
+    document.getElementById("myModal").style.display = "block";
+}
+
+    function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+}
+  
+var slideIndex = 1;
+showSlides(slideIndex);
+  
+// Next/previous controls
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+  
+// Thumbnail image controls
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+  
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+  
+    var captionText = document.getElementById("caption");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slides[slideIndex-1].style.display = "block";
+    captionText.innerHTML = "Image";
+
 }
 
 const photographerId = getPhotographerId();
 let userMediaDisplay;
 const header = document.querySelector('.photograph-header');
 const galery = document.querySelector('.photograph-galery');
+const lightbox = document.querySelector('.modal-content');
 
 async function init(){
     //fetch
@@ -191,12 +258,15 @@ async function init(){
     const tarifCardDom = photographerModel.getPhotographerTarif();
     const mediaCardDom = mediaModel.getPhotographerDomMedia();
     const likesDom = mediaModel.getPhotographerLikes();
+    const lightboxDom = getLightboxDom(mediaCardDom);
     header.appendChild(userCardDOM);
     header.appendChild(pictureCardDom);
 
     for (let i=0; i<mediaCardDom.length; i++){
         galery.append(mediaCardDom[i]);
+        lightbox.append(lightboxDom[i]);
     }
+
 }
 
 init();
