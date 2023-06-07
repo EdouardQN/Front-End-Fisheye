@@ -122,6 +122,7 @@ function mediaFactory(media){
     var heartIcon;
     var nbLikes = 0;
     var factory = new Factory();
+    // console.log(media[0].likes);
 
     function getPhotographerDomMedia(){
         let div = [];
@@ -130,7 +131,7 @@ function mediaFactory(media){
             headingMedia[i] = document.createElement('h3');
             spanMedia[i] = document.createElement('span');
             heartIcon = document.createElement('button');
-            heartIcon.innerHTML = '<ion-icon name="heart"></ion-icon>';
+            heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
             div[i] = document.createElement('div');
             tabMedia.push(factory.createMedia(media[i]));
             if (tabMedia[i].hasOwnProperty('image')){
@@ -147,6 +148,8 @@ function mediaFactory(media){
             sample = `../../assets/samples/${userMediaDisplay}/${contentMedia}`;
             headingMedia[i].innerText = tabMedia[i].title;
             spanMedia[i].innerText = tabMedia[i].likes;
+            // console.log("before append", spanMedia[i].innerText)
+            // heartIcon.addEventListener("click", () => givePhotographersLikes(spanMedia[i].innerText));
             divMediaDetails[i] = document.createElement('div');
             divMediaDetails[i].classList.add('media-details');
             displayMedia.setAttribute("src", sample);
@@ -175,6 +178,13 @@ let userMediaDisplay;
 const header = document.querySelector('.photograph-header');
 const galery = document.querySelector('.photograph-galery');
 
+function givePhotographersLike(number){
+
+    number++;
+    console.log(number);
+    return number;
+}
+
 async function init(){
     //fetch
     const data = await getPhotographer();
@@ -196,8 +206,20 @@ async function init(){
 
     for (let i=0; i<mediaCardDom.length; i++){
         galery.append(mediaCardDom[i]);
+        let btnLike = mediaCardDom[i].children[1].lastChild;
+        btnLike.addEventListener("click", (event) => {
+
+            if (event.target.classList.contains('media_liked')){
+                console.log('already liked');
+            }
+            else{
+                mediaCardDom[i].children[1].childNodes[1].innerText++;
+                event.target.classList.add('media_liked');
+            }
+        })
     }
 }
 
 init();
+
 
