@@ -113,16 +113,12 @@ var Video = function(type){
 }
 
 function mediaFactory(media){
+    var contentMedia, displayMedia, sample, heartIcon;
     var tabMedia= [];
-    var contentMedia;
-    var displayMedia;
     var headingMedia = [];
     var spanMedia = [];
-    var sample;
-    var heartIcon;
     var nbLikes = 0;
     var factory = new Factory();
-    // console.log(media[0].likes);
 
     function getPhotographerDomMedia(){
         let div = [];
@@ -134,6 +130,7 @@ function mediaFactory(media){
             heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
             div[i] = document.createElement('div');
             tabMedia.push(factory.createMedia(media[i]));
+
             if (tabMedia[i].hasOwnProperty('image')){
                 contentMedia = tabMedia[i].image;
                 displayMedia = document.createElement('img');
@@ -148,8 +145,6 @@ function mediaFactory(media){
             sample = `../../assets/samples/${userMediaDisplay}/${contentMedia}`;
             headingMedia[i].innerText = tabMedia[i].title;
             spanMedia[i].innerText = tabMedia[i].likes;
-            // console.log("before append", spanMedia[i].innerText)
-            // heartIcon.addEventListener("click", () => givePhotographersLikes(spanMedia[i].innerText));
             divMediaDetails[i] = document.createElement('div');
             divMediaDetails[i].classList.add('media-details');
             displayMedia.setAttribute("src", sample);
@@ -169,7 +164,6 @@ function mediaFactory(media){
         likes.innerText = nbLikes;
         return likes;
     }
-
     return {tabMedia, nbLikes, factory, getPhotographerDomMedia, getPhotographerLikes};
 }
 
@@ -177,13 +171,6 @@ const photographerId = getPhotographerId();
 let userMediaDisplay;
 const header = document.querySelector('.photograph-header');
 const galery = document.querySelector('.photograph-galery');
-
-function givePhotographersLike(number){
-
-    number++;
-    console.log(number);
-    return number;
-}
 
 async function init(){
     //fetch

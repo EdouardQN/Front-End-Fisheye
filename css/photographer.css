@@ -40,6 +40,62 @@
     -moz-box-shadow: 0px 3px 12px 3px #525252;
 }
 
+/* DropDown */
+
+.dropdown-sort{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 32px;
+    margin: 0 100px;
+    padding: 16px 0;
+}
+
+.dropdown-heading{
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.dropdown-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 32px 16px 12px;
+    gap: 16px;
+    list-style: none;
+}
+
+.dropdown-container,
+.contact_button,
+.submit_button {
+    font-weight: bold;
+    color: white;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdown-container li:not(:nth-child(4)){
+    padding: 4px 0;
+    border-bottom: 1px solid #FAFAFA;
+}
+
+.drop-icon{
+    position: absolute;
+    padding: 4px 0;
+    width: 16px;
+    top: 18px;
+    right: 8px;
+    transform: rotate(0);
+}
+
+.drop-icon:active,
+.drop-icon:focus{
+    transform: rotate(180deg);
+}
+
 /* Photographer galery */
 
 .photograph-galery{
@@ -47,7 +103,7 @@
     grid-template-columns: repeat(auto-fill, 250px);
     gap: 48px;
     justify-content: space-between;
-    margin : 64px 100px;  /* à modifier */
+    margin : 64px 100px; 
 }
 /* 
 .photograph-image,
@@ -108,17 +164,12 @@
 }
 
 .contact_button,
-.submit_button {
+.submit_button{
     font-size: 20px;
-    font-weight: bold;
-    color: white;
     padding: 11px;
     width: 170px;
     height: 70px;
-    border: none;
-    background-color: #901C1C;
-    border-radius: 5px;
-    cursor: pointer;
+
 }
 
 .modal {
