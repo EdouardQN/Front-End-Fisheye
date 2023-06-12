@@ -178,12 +178,6 @@ let userMediaDisplay;
 const header = document.querySelector('.photograph-header');
 const galery = document.querySelector('.photograph-galery');
 
-function givePhotographersLike(number){
-
-    number++;
-    console.log(number);
-    return number;
-}
 
 async function init(){
     //fetch
@@ -200,7 +194,7 @@ async function init(){
     const pictureCardDom = photographerModel.getPhotographerPicture();
     const tarifCardDom = photographerModel.getPhotographerTarif();
     const mediaCardDom = mediaModel.getPhotographerDomMedia();
-    const likesDom = mediaModel.getPhotographerLikes();
+    let likesDom = mediaModel.getPhotographerLikes();
     header.appendChild(userCardDOM);
     header.appendChild(pictureCardDom);
 
@@ -210,10 +204,14 @@ async function init(){
         btnLike.addEventListener("click", (event) => {
 
             if (event.target.classList.contains('media_liked')){
-                console.log('already liked');
+                mediaCardDom[i].children[1].childNodes[1].innerText--;
+                likesDom.innerText--;
+                event.target.classList.remove('media_liked');
+
             }
             else{
                 mediaCardDom[i].children[1].childNodes[1].innerText++;
+                likesDom.innerText++;
                 event.target.classList.add('media_liked');
             }
         })
