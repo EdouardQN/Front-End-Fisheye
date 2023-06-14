@@ -4,10 +4,8 @@
 function getPhotographerId(){return new URL(location.href).searchParams.get("id");}
 
 async function getPhotographer(){
-    let photographers = fetch('../../data/photographers.json')
-        .then(response => response.json())
-        .catch(error => console.error(error));
-        return photographers;
+    let photographers = fetch('../../data/photographers.json').then(response => response.json()).catch(error => console.error(error));
+    return photographers;
 }
 
 function getPhotographerContent(json){
@@ -64,16 +62,14 @@ function photographerFactory(content){
         div.appendChild(span);
         return (div);
     }
+
     function getPhotographerPicture(){
         const divImg = document.createElement('div');
-        const img = document.createElement( 'img' );
-
         divImg.classList.add('photograph-img');
+        const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
         img.setAttribute("alt", "Image Photographe");
-
         divImg.appendChild(img);
-
         return (divImg);
     }
 
@@ -113,16 +109,10 @@ var Video = function(type){
 }
 
 function mediaFactory(media){
-    var tabMedia= [];
-    var contentMedia;
-    var displayMedia;
-    var headingMedia = [];
-    var spanMedia = [];
-    var sample;
-    var heartIcon;
-    var nbLikes = 0;
+    var contentMedia, displayMedia, sample, heartIcon, nbLikes = 0;
+    var tabMedia= [], headingMedia = [], spanMedia = [];
+
     var factory = new Factory();
-    // console.log(media[0].likes);
 
     function getPhotographerDomMedia(){
         let div = [];
@@ -134,6 +124,7 @@ function mediaFactory(media){
             heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
             div[i] = document.createElement('div');
             tabMedia.push(factory.createMedia(media[i]));
+
             if (tabMedia[i].hasOwnProperty('image')){
                 contentMedia = tabMedia[i].image;
                 displayMedia = document.createElement('img');
@@ -148,8 +139,6 @@ function mediaFactory(media){
             sample = `../../assets/samples/${userMediaDisplay}/${contentMedia}`;
             headingMedia[i].innerText = tabMedia[i].title;
             spanMedia[i].innerText = tabMedia[i].likes;
-            // console.log("before append", spanMedia[i].innerText)
-            // heartIcon.addEventListener("click", () => givePhotographersLikes(spanMedia[i].innerText));
             divMediaDetails[i] = document.createElement('div');
             divMediaDetails[i].classList.add('media-details');
             displayMedia.setAttribute("src", sample);
@@ -169,7 +158,6 @@ function mediaFactory(media){
         likes.innerText = nbLikes;
         return likes;
     }
-
     return {tabMedia, nbLikes, factory, getPhotographerDomMedia, getPhotographerLikes};
 }
 
@@ -177,7 +165,10 @@ const photographerId = getPhotographerId();
 let userMediaDisplay;
 const header = document.querySelector('.photograph-header');
 const galery = document.querySelector('.photograph-galery');
-
+const dropDown = document.querySelector('.dropdown-container');
+const dropPopularity = document.querySelector('.dropdown-popularity');
+const dropDate = document.querySelector('.dropdown-date');
+const dropTitle = document.querySelector('.dropdown-title');
 
 async function init(){
     //fetch
@@ -188,13 +179,13 @@ async function init(){
     const photographerMedia = getPhotographerMedia(data);
     //factory functions qui utilisent leur tableau correspondant au dessus
     const photographerModel = photographerFactory(photographerContent);
-    const mediaModel = mediaFactory(photographerMedia);
+    let mediaModel = mediaFactory(photographerMedia);
     //DOM Maniplation
     const userCardDOM = photographerModel.getPhotographerDomContent();
     const pictureCardDom = photographerModel.getPhotographerPicture();
     const tarifCardDom = photographerModel.getPhotographerTarif();
-    const mediaCardDom = mediaModel.getPhotographerDomMedia();
-    let likesDom = mediaModel.getPhotographerLikes();
+    let mediaCardDom = mediaModel.getPhotographerDomMedia();
+    const likesDom = mediaModel.getPhotographerLikes();
     header.appendChild(userCardDOM);
     header.appendChild(pictureCardDom);
 
@@ -214,8 +205,53 @@ async function init(){
                 likesDom.innerText++;
                 event.target.classList.add('media_liked');
             }
-        })
+        })           
     }
+
+    dropPopularity.addEventListener("click", () => {
+   
+        let sortByPopularity = mediaModel.tabMedia.sort(
+            (previousPopularity, actualPopularity) => actualPopularity.likes - previousPopularity.likes
+        );
+        galery.innerHTML = "";
+        mediaModel = mediaFactory(sortByPopularity);
+        mediaCardDom = mediaModel.getPhotographerDomMedia();
+        for (let i=0; i<mediaCardDom.length; i++){
+            galery.append(mediaCardDom[i]);
+        } 
+    })
+
+    dropDate.addEventListener("click", () => {
+
+        let sortByDate = mediaModel.tabMedia.sort(
+               (previousDate, actualDate) => new Date(actualDate.date) - new Date(previousDate.date)
+        );
+        galery.innerHTML = "";
+        // Une date ne se trie pas bien
+        // console.log(sortByDate);
+        mediaModel = mediaFactory(sortByDate);
+        mediaCardDom = mediaModel.getPhotographerDomMedia();
+        for (let i=0; i<mediaCardDom.length; i++){
+            galery.append(mediaCardDom[i]);
+        }         
+    })
+
+    dropTitle.addEventListener("click", () => {
+        let sortByTitle = mediaModel.tabMedia.sort(
+            (previousTitle, actualTitle) => {
+                if (previousTitle.title < actualTitle.title) {return -1;}
+                if (previousTitle.title > actualTitle.title) {return 1;}
+                return 0;
+            }          
+        ); 
+        galery.innerHTML = "";
+        console.log(sortByTitle);
+        mediaModel = mediaFactory(sortByTitle);
+        mediaCardDom = mediaModel.getPhotographerDomMedia();
+        for (let i=0; i<mediaCardDom.length; i++){
+            galery.append(mediaCardDom[i]);
+        }         
+    })
 }
 
 init();
