@@ -56,14 +56,22 @@
     font-size: 14px;
 }
 
-.dropdown-container{
-    position: relative;
+.dropdown-container,
+.dropdown-container:hover .dropdown-content{
     display: flex;
     flex-direction: column;
+    gap: 16px;
+}
+
+.dropdown-content{
+    display: none;
+}
+
+.dropdown-container{
+    position: relative;
     justify-content: space-between;
     padding: 16px 32px 16px 12px;
     gap: 16px;
-    list-style: none;
 }
 
 .dropdown-container,
@@ -74,10 +82,10 @@
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-.dropdown-container li:not(:nth-child(4)){
+.dropdown-container span:first-child,
+.dropdown-content span:first-child{
     padding: 4px 0;
     border-bottom: 1px solid #FAFAFA;
 }
@@ -91,10 +99,12 @@
     transform: rotate(0);
 }
 
-.drop-icon:active,
-.drop-icon:focus{
-    transform: rotate(180deg);
+.dropdown-popularity,
+.dropdown-date,
+.dropdown-title{
+    cursor: pointer;
 }
+
 
 /* Photographer galery */
 
