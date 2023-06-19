@@ -174,7 +174,7 @@ function mediaFactory(media){
 
 // Lightbox
 function getLightboxDom(mediaDom){
-    console.log(mediaDom);
+    // console.log(mediaDom);
     let src;
     let divLightbox = [];
     let mediaLightbox;
@@ -186,6 +186,7 @@ function getLightboxDom(mediaDom){
         if (mediaDom[i].firstChild.hasAttribute('controls')){
             src = mediaDom[i].firstChild.attributes[1].value;
             mediaLightbox = document.createElement('video');
+            mediaLightbox.setAttribute('controls', '');
         }
         else{
             src = mediaDom[i].firstChild.attributes[0].value;
@@ -197,6 +198,8 @@ function getLightboxDom(mediaDom){
         mediaLightbox.style.width = '100%';
         divLightbox[i].append(mediaLightbox);
     }
+    console.log("div media", divLightbox);
+    console.log(divLightbox[0].classList.contains('mySlides'));
     return (divLightbox);
 }
 
@@ -208,9 +211,6 @@ function openModal() {
     document.getElementById("myModal").style.display = "none";
 }
   
-var slideIndex = 1;
-showSlides(slideIndex);
-  
 // Next/previous controls
 function plusSlides(n) {
     showSlides(slideIndex += n);
@@ -220,18 +220,26 @@ function plusSlides(n) {
 function currentSlide(n) {
     showSlides(slideIndex = n);
 }
+
+var slideIndex = 1;
+
   
 function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("mySlides");
-  
+    var dots = document.getElementsByClassName("media_inside");
+    console.log("dots", dots);
     var captionText = document.getElementById("caption");
     if (n > slides.length) {slideIndex = 1}
     if (n < 1) {slideIndex = slides.length}
     for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
     }
-    slides[slideIndex-1].style.display = "block";
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex].style.display = "block";
+    dots[slideIndex].className += " active";
     captionText.innerHTML = "Image";
 
 }
@@ -270,4 +278,6 @@ async function init(){
 }
 
 init();
+
+showSlides(slideIndex);
 
