@@ -223,12 +223,13 @@ async function init(){
 
     dropDate.addEventListener("click", () => {
 
+        console.log("mediamodel", mediaModel.tabMedia)
         let sortByDate = mediaModel.tabMedia.sort(
                (previousDate, actualDate) => new Date(actualDate.date) - new Date(previousDate.date)
         );
         galery.innerHTML = "";
-        // Une date ne se trie pas bien
-        // console.log(sortByDate);
+        // Une date ne se trie pas bien date.parse
+        console.log(sortByDate);
         mediaModel = mediaFactory(sortByDate);
         mediaCardDom = mediaModel.getPhotographerDomMedia();
         for (let i=0; i<mediaCardDom.length; i++){
@@ -245,7 +246,6 @@ async function init(){
             }          
         ); 
         galery.innerHTML = "";
-        console.log(sortByTitle);
         mediaModel = mediaFactory(sortByTitle);
         mediaCardDom = mediaModel.getPhotographerDomMedia();
         for (let i=0; i<mediaCardDom.length; i++){
