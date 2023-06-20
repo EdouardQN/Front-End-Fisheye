@@ -171,13 +171,9 @@ function mediaFactory(media){
     return {tabMedia, nbLikes, factory, sample, getPhotographerDomMedia, getPhotographerLikes};
 }
 
-
-// Lightbox
 function getLightboxDom(mediaDom){
-    // console.log(mediaDom);
-    let src;
+    let src, mediaLightbox;
     let divLightbox = [];
-    let mediaLightbox;
     for (let i=0; i<mediaDom.length; i++){
 
         divLightbox[i] = document.createElement('div');
@@ -198,8 +194,6 @@ function getLightboxDom(mediaDom){
         mediaLightbox.style.width = '100%';
         divLightbox[i].append(mediaLightbox);
     }
-    console.log("div media", divLightbox);
-    console.log(divLightbox[0].classList.contains('mySlides'));
     return (divLightbox);
 }
 
@@ -228,10 +222,9 @@ function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("mySlides");
     var dots = document.getElementsByClassName("media_inside");
-    console.log("dots", dots);
     var captionText = document.getElementById("caption");
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
+    if (n > slides.length-1) {slideIndex = 0}
+    if (n < 0) {slideIndex = slides.length-1}
     for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
     }
@@ -242,6 +235,7 @@ function showSlides(n) {
     dots[slideIndex].className += " active";
     captionText.innerHTML = "Image";
 
+    return slides, dots, captionText;
 }
 
 const photographerId = getPhotographerId();
@@ -274,10 +268,9 @@ async function init(){
         galery.append(mediaCardDom[i]);
         lightbox.append(lightboxDom[i]);
     }
+    showSlides(slideIndex);
 
 }
 
 init();
-
-showSlides(slideIndex);
 
