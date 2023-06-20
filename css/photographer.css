@@ -84,6 +84,11 @@
     border-radius: 5px;
 }
 
+.contact_button,
+.submit_button{
+    cursor: pointer;
+}
+
 .dropdown-container span:first-child,
 .dropdown-content span:first-child{
     padding: 4px 0;
@@ -115,12 +120,6 @@
     justify-content: space-between;
     margin : 64px 100px; 
 }
-/* 
-.photograph-image,
-.photograph-video{
-    background-color: gray;
-    height: 250px;
-} */
 
 .photograph-image img,
 .photograph-video video{
@@ -169,10 +168,6 @@
 
 /* Contact form */
 
-#contact_modal {
-    display: none;
-}
-
 .contact_button,
 .submit_button{
     font-size: 20px;
@@ -182,13 +177,12 @@
 
 }
 
-.modal {
-    visibility: hidden;
+.modal-form {
+    display: none;
     border: none;
     border-radius: 5px; 
     background-color: #DB8876;
     width: 50%;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -196,22 +190,21 @@
     margin: 12px auto;
 }
 
-/* pseudo élement permettant de modifier le style backdrop de la modal */
-.modal::backdrop{
+.modal-form::backdrop{
     background: rgb(0, 0, 0);
     opacity: .6;
 }
 
-.modal header {
+.modal-form header {
     justify-content: space-between;
     width: 100%;
 }
 
-.modal header img {
+.modal-form header img {
     cursor: pointer;
 }
 
-.modal header h2 {
+.modal-form header h2 {
     font-size: 64px;
     font-weight: normal;
     text-align: center;
@@ -251,4 +244,104 @@ form input{
 
 form textarea{
     height: 110px;
+}
+
+/* Lightbox */
+
+.row > .column {
+    padding: 0 8px;
+}
+  
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* Create four equal columns that floats next to eachother */
+.column {
+    float: left;
+    width: 25%;
+}
+
+/* background */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding: 10px 0; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    height: 90%;
+    max-width: 700px;
+    max-height: 700px;
+}
+
+.close {
+    cursor: pointer;
+    z-index: 10;
+    color: #901c1c;
+    position: absolute;
+    top: 60px;
+    right: 5%;
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.mySlides {
+    display: none;
+    height: 100%;
+}
+
+.media_inside{
+    height: 100%;
+    object-fit: cover;
+} 
+
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: #901c1c;
+  font-weight: bold;
+  font-size: 48px;
+}
+
+.prev{
+    border-radius: 0 3px 3px 0;
+    left: -15%;
+}
+
+.next {
+    right: -15%;
+    border-radius: 3px 0 0 3px;
+}
+
+.caption-container {
+    text-align: center;
+    /* background: rgb(0, 0, 0); */
+    padding: 2px 16px;
+    color: white;
+}
+
+.caption-container #caption{
+    font-size: 32px;
 }

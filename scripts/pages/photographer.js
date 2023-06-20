@@ -142,6 +142,7 @@ function mediaFactory(media){
             divMediaDetails[i] = document.createElement('div');
             divMediaDetails[i].classList.add('media-details');
             displayMedia.setAttribute("src", sample);
+            displayMedia.setAttribute("onclick", `openModal();currentSlide(${i})`);
             displayMedia.setAttribute("style", "object-fit:cover; width:250px; height:250px");
             divMediaDetails[i].appendChild(headingMedia[i]);
             divMediaDetails[i].appendChild(spanMedia[i]);
@@ -158,7 +159,75 @@ function mediaFactory(media){
         likes.innerText = nbLikes;
         return likes;
     }
-    return {tabMedia, nbLikes, factory, getPhotographerDomMedia, getPhotographerLikes};
+
+    return {tabMedia, nbLikes, factory, sample, getPhotographerDomMedia, getPhotographerLikes};
+}
+
+function getLightboxDom(mediaDom){
+    let src, mediaLightbox;
+    let divLightbox = [];
+    for (let i=0; i<mediaDom.length; i++){
+
+        divLightbox[i] = document.createElement('div');
+        divLightbox[i].classList.add('mySlides');
+
+        if (mediaDom[i].firstChild.hasAttribute('controls')){
+            src = mediaDom[i].firstChild.attributes[1].value;
+            mediaLightbox = document.createElement('video');
+            mediaLightbox.setAttribute('controls', '');
+        }
+        else{
+            src = mediaDom[i].firstChild.attributes[0].value;
+            mediaLightbox = document.createElement('img');
+
+        }
+        mediaLightbox.classList.add('media_inside');
+        mediaLightbox.setAttribute('src', src);
+        mediaLightbox.style.width = '100%';
+        divLightbox[i].append(mediaLightbox);
+    }
+    return (divLightbox);
+}
+
+function openModal() {
+    document.getElementById("myModal").style.display = "block";
+}
+
+    function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+}
+  
+// Next/previous controls
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+  
+// Thumbnail image controls
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+var slideIndex = 1;
+
+  
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("media_inside");
+    var captionText = document.getElementById("caption");
+    if (n > slides.length-1) {slideIndex = 0}
+    if (n < 0) {slideIndex = slides.length-1}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex].style.display = "block";
+    dots[slideIndex].className += " active";
+    captionText.innerHTML = "Image";
+
+    return slides, dots, captionText;
 }
 
 const photographerId = getPhotographerId();
@@ -169,6 +238,7 @@ const dropDown = document.querySelector('.dropdown-container');
 const dropPopularity = document.querySelector('.dropdown-popularity');
 const dropDate = document.querySelector('.dropdown-date');
 const dropTitle = document.querySelector('.dropdown-title');
+const lightbox = document.querySelector('.modal-content');
 
 async function init(){
     //fetch
@@ -186,11 +256,13 @@ async function init(){
     const tarifCardDom = photographerModel.getPhotographerTarif();
     let mediaCardDom = mediaModel.getPhotographerDomMedia();
     const likesDom = mediaModel.getPhotographerLikes();
+    const lightboxDom = getLightboxDom(mediaCardDom);
     header.appendChild(userCardDOM);
     header.appendChild(pictureCardDom);
 
     for (let i=0; i<mediaCardDom.length; i++){
         galery.append(mediaCardDom[i]);
+        lightbox.append(lightboxDom[i]);
         let btnLike = mediaCardDom[i].children[1].lastChild;
         btnLike.addEventListener("click", (event) => {
 
@@ -209,7 +281,6 @@ async function init(){
     }
 
     dropPopularity.addEventListener("click", () => {
-   
         let sortByPopularity = mediaModel.tabMedia.sort(
             (previousPopularity, actualPopularity) => actualPopularity.likes - previousPopularity.likes
         );
@@ -222,14 +293,10 @@ async function init(){
     })
 
     dropDate.addEventListener("click", () => {
-
-        console.log("mediamodel", mediaModel.tabMedia)
         let sortByDate = mediaModel.tabMedia.sort(
-               (previousDate, actualDate) => new Date(actualDate.date) - new Date(previousDate.date)
+            (previousDate, actualDate) => new Date(actualDate.date) - new Date(previousDate.date)
         );
         galery.innerHTML = "";
-        // Une date ne se trie pas bien date.parse
-        console.log(sortByDate);
         mediaModel = mediaFactory(sortByDate);
         mediaCardDom = mediaModel.getPhotographerDomMedia();
         for (let i=0; i<mediaCardDom.length; i++){
@@ -252,6 +319,8 @@ async function init(){
             galery.append(mediaCardDom[i]);
         }         
     })
+    showSlides(slideIndex);
+
 }
 
 init();
