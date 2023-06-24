@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <meta charset="utf-8">
@@ -8,15 +8,16 @@
     <title>Fisheye - photographe </title>
   </head>
   <body>
-    <header>
+    <header class="header-main" aria-hidden="false">
       <img src="assets/images/logo.png" class="logo" alt="Logo Fisheye" />
     </header>
     <main id="main">
-      <div class="photograph-header">
+      <div class="photograph-header" aria-hidden="false">
         <button class="contact_button">Contactez-moi</button>
       </div>
 
-      <div class="dropdown-sort">
+      <!-- Sort Methods -->
+      <div class="dropdown-sort" aria-hidden="false">
         <h4 class="dropdown-heading">Trier par</h4>
         <div class="dropdown-container">
           <span class="dropdown-popularity drop-active">Popularité</span>
@@ -28,9 +29,9 @@
         </div>
       </div>
 
-      <div class="photograph-galery"></div>
-
-      <div class="photograph-details">
+      <!-- Galery Photograph -->
+      <div class="photograph-galery" aria-hidden="false"></div>
+      <div class="photograph-details" aria-hidden="false">
         <div class="photograph-nbLikes">
           <span class="photograph-likes"></span>
           <ion-icon name="heart"></ion-icon>
@@ -38,12 +39,13 @@
         <span class="photograph-tarif"></span>
       </div>
 
-      <dialog class="modal-form" role="dialog" aria-describedby="modalForm">
+      <!-- Contact Form -->
+      <dialog class="modal-form" aria-labelledby="contactForm" aria-hidden="true">
         <header>
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" alt="close icon" class="close_modal"/>
         </header>
-        <form method="div" class="contactForm" onsubmit="sendData()">
+        <form class="contactForm" id="contactForm" onsubmit="sendData()">
           <div>
             <label for="nom">Nom</label>
             <input type="text" name="nom" id="nom" aria-labelledby="nom"/>
@@ -57,20 +59,20 @@
           <button class="submit_button">Envoyer</button>
         </form>
       </dialog>
-      <!-- The Modal/Lightbox -->
-      <div id="myModal" class="modal">
+
+      <!-- Lightbox -->
+      <div id="myModal" class="modal" aria-hidden="true">
         <span class="close cursor" onclick="closeModal()">&times;</span>
         <div class="modal-content">
-          <!-- Next/previous controls -->
           <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
           <a class="next" onclick="plusSlides(1)">&#10095;</a>
-          <!-- Caption text -->
           <div class="caption-container">
             <p id="caption"></p>
           </div>
         </div>
       </div>
     </main>
+
 
     <!-- Ion Icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

@@ -40,7 +40,7 @@
     -moz-box-shadow: 0px 3px 12px 3px #525252;
 }
 
-/* DropDown */
+/* DropDown Sort */
 
 .dropdown-sort{
     display: flex;
@@ -91,6 +91,7 @@
 
 .dropdown-container span:first-child,
 .dropdown-content span:first-child{
+    height: 100%;
     padding: 4px 0;
     border-bottom: 1px solid #FAFAFA;
 }
@@ -109,7 +110,6 @@
 .dropdown-title{
     cursor: pointer;
 }
-
 
 /* Photographer galery */
 
@@ -258,13 +258,11 @@ display: table;
 clear: both;
 }
 
-/* Create four equal columns that floats next to eachother */
 .column {
     float: left;
     width: 25%;
 }
 
-/* background */
 .modal {
   display: none;
   position: fixed;
@@ -281,12 +279,14 @@ clear: both;
 /* Modal Content */
 .modal-content {
     position: relative;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 50px auto;
     padding: 0;
     width: 90%;
     height: 90%;
-    max-width: 700px;
-    max-height: 700px;
+    max-width: 600px;
+    max-height: 600px;
 }
 
 .close {
@@ -294,7 +294,7 @@ clear: both;
     z-index: 10;
     color: #901c1c;
     position: absolute;
-    top: 60px;
+    top: 20px;
     right: 5%;
     font-size: 80px;
     font-weight: bold;
@@ -310,8 +310,6 @@ clear: both;
     object-fit: cover;
 } 
 
-
-/* Next & previous buttons */
 .prev,
 .next {
   cursor: pointer;
@@ -336,12 +334,10 @@ clear: both;
 }
 
 .caption-container {
-    text-align: center;
-    /* background: rgb(0, 0, 0); */
-    padding: 2px 16px;
-    color: white;
+    order: 2;
+    color: #901C1C;
 }
 
 .caption-container #caption{
-    font-size: 32px;
+    font-size: 16px;
 }

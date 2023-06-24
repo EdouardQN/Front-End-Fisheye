@@ -111,7 +111,6 @@ var Video = function(type){
 function mediaFactory(media){
     var contentMedia, displayMedia, sample, heartIcon, nbLikes = 0;
     var tabMedia= [], headingMedia = [], spanMedia = [];
-
     var factory = new Factory();
 
     function getPhotographerDomMedia(){
@@ -119,6 +118,7 @@ function mediaFactory(media){
         let divMediaDetails = [];
         for (let i = 0; i<media.length; i++){
             headingMedia[i] = document.createElement('h3');
+            headingMedia[i].classList.add('detail-media-title');
             spanMedia[i] = document.createElement('span');
             heartIcon = document.createElement('button');
             heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
@@ -144,6 +144,7 @@ function mediaFactory(media){
             displayMedia.setAttribute("src", sample);
             displayMedia.setAttribute("onclick", `openModal();currentSlide(${i})`);
             displayMedia.setAttribute("style", "object-fit:cover; width:250px; height:250px");
+            displayMedia.setAttribute("alt", `${headingMedia[i].innerText} media galery`);
             divMediaDetails[i].appendChild(headingMedia[i]);
             divMediaDetails[i].appendChild(spanMedia[i]);
             divMediaDetails[i].append(heartIcon);
@@ -183,6 +184,7 @@ function getLightboxDom(mediaDom){
         }
         mediaLightbox.classList.add('media_inside');
         mediaLightbox.setAttribute('src', src);
+        mediaLightbox.setAttribute('alt', `${mediaDom[i].children[1].children[0].innerText} media lightbox`);
         mediaLightbox.style.width = '100%';
         divLightbox[i].append(mediaLightbox);
     }
@@ -190,30 +192,51 @@ function getLightboxDom(mediaDom){
 }
 
 function openModal() {
-    document.getElementById("myModal").style.display = "block";
+    document.getElementById("myModal").style.display = "flex";
+    document.getElementById("myModal").setAttribute("aria-hidden", false);
+    for (let i=0; i<ariasHiddenLightbox.length; i++){
+        ariasHiddenLightbox[i].setAttribute("aria-hidden", true);
+    }
 }
 
     function closeModal() {
     document.getElementById("myModal").style.display = "none";
+    document.getElementById("myModal").setAttribute("aria-hidden", true);
+    for (let i=0; i<ariasHiddenLightbox.length; i++){
+        ariasHiddenLightbox[i].setAttribute("aria-hidden", false);
+    }
 }
+
+var prev = document.querySelector('.prev');
+var next = document.querySelector('.next');
+
+prev.addEventListener("keydown", (e) => {
+    if (e.keyCode == 40){
+        plusSlides(-1);
+    }
+})
+
+next.addEventListener("keydown", (e) => {
+    if (e.keyCode == 38){
+        plusSlides(1);
+    }
+})
   
-// Next/previous controls
 function plusSlides(n) {
     showSlides(slideIndex += n);
 }
   
-// Thumbnail image controls
 function currentSlide(n) {
     showSlides(slideIndex = n);
 }
 
 var slideIndex = 1;
 
-  
 function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("mySlides");
     var dots = document.getElementsByClassName("media_inside");
+    var mediaTitle = document.getElementsByClassName('detail-media-title');
     var captionText = document.getElementById("caption");
     if (n > slides.length-1) {slideIndex = 0}
     if (n < 0) {slideIndex = slides.length-1}
@@ -223,22 +246,25 @@ function showSlides(n) {
     for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
-    slides[slideIndex].style.display = "block";
+    slides[slideIndex].style.display = "flex";
     dots[slideIndex].className += " active";
-    captionText.innerHTML = "Image";
-
-    return slides, dots, captionText;
+    captionText.innerHTML = mediaTitle[slideIndex].innerText;
 }
 
 const photographerId = getPhotographerId();
 let userMediaDisplay;
 const header = document.querySelector('.photograph-header');
+const headerMainL = document.querySelector('.header-main');
 const galery = document.querySelector('.photograph-galery');
+const detailsPhotograph = document.querySelector('.photograph-details');
+const dropdownGroup = document.querySelector('.dropdown-sort');
 const dropDown = document.querySelector('.dropdown-container');
 const dropPopularity = document.querySelector('.dropdown-popularity');
 const dropDate = document.querySelector('.dropdown-date');
 const dropTitle = document.querySelector('.dropdown-title');
 const lightbox = document.querySelector('.modal-content');
+
+let ariasHiddenLightbox = [headerMainL, header, dropdownGroup, galery, detailsPhotograph];
 
 async function init(){
     //fetch
@@ -260,6 +286,7 @@ async function init(){
     header.appendChild(userCardDOM);
     header.appendChild(pictureCardDom);
 
+    //Likes
     for (let i=0; i<mediaCardDom.length; i++){
         galery.append(mediaCardDom[i]);
         lightbox.append(lightboxDom[i]);
@@ -280,6 +307,7 @@ async function init(){
         })           
     }
 
+    //Sort
     dropPopularity.addEventListener("click", () => {
         let sortByPopularity = mediaModel.tabMedia.sort(
             (previousPopularity, actualPopularity) => actualPopularity.likes - previousPopularity.likes
@@ -324,5 +352,3 @@ async function init(){
 }
 
 init();
-
-
