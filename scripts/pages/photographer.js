@@ -194,14 +194,16 @@ function getLightboxDom(mediaDom){
 function openModal() {
     document.getElementById("myModal").style.display = "flex";
     document.getElementById("myModal").setAttribute("aria-hidden", false);
+    document.body.style.overflow = 'hidden';
     for (let i=0; i<ariasHiddenLightbox.length; i++){
         ariasHiddenLightbox[i].setAttribute("aria-hidden", true);
     }
 }
 
-    function closeModal() {
+function closeModal() {
     document.getElementById("myModal").style.display = "none";
     document.getElementById("myModal").setAttribute("aria-hidden", true);
+    document.body.style.overflow = 'scroll';
     for (let i=0; i<ariasHiddenLightbox.length; i++){
         ariasHiddenLightbox[i].setAttribute("aria-hidden", false);
     }
@@ -210,19 +212,21 @@ function openModal() {
 var prev = document.querySelector('.prev');
 var next = document.querySelector('.next');
 
-prev.addEventListener("keydown", (e) => {
-    if (e.keyCode == 40){
+document.getElementById("myModal").addEventListener("keyup", (e) => {
+    console.log(e.target);
+     if (e.keyCode == 37){
+        console.log("précédent");
         plusSlides(-1);
     }
-})
-
-next.addEventListener("keydown", (e) => {
-    if (e.keyCode == 38){
+    else if (e.keyCode == 39){
         plusSlides(1);
-    }
+        console.log("suivant");
+     }
 })
   
 function plusSlides(n) {
+    console.log("via click");
+    // console.log(e.target);
     showSlides(slideIndex += n);
 }
   

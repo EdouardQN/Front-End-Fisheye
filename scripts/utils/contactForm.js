@@ -18,31 +18,36 @@ const details = document.querySelector('.photograph-details');
 let ariasHidden = [headerMain, photograph, dropdown, galeryPhotograph, details];
 
 openForm.addEventListener("click", () => {
+    console.log("j'ouvre");
     modal.showModal();
     modal.style.display = "flex";
     modal.setAttribute("aria-hidden", false);
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
     for (let i=0; i<ariasHidden.length; i++){
         ariasHidden[i].setAttribute("aria-hidden", true);
     }
 })
 
 closeForm.addEventListener("click", () => {
+    console.log("je ferme");
     modal.close();
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", true);
-    document.body.style.overflow = 'scroll';
+    // document.body.style.overflow = 'scroll';
     for (let i=0; i<ariasHidden.length; i++){
         ariasHidden[i].setAttribute("aria-hidden", false);
     }
 })
 
-modal.addEventListener("keydown", (e) => {
+//add event listener sur tous les input
+nomForm.addEventListener("keydown", (e) => {
+    console.log("dans le keydown");
+    console.log(e.target);
     if (e.keyCode == 27){
         modal.close();
         modal.style.display = "none";
         modal.setAttribute("aria-hidden", true);
-        document.body.style.overflow = 'scroll';
+        // document.body.style.overflow = 'scroll';
         for (let i=0; i<ariasHidden.length; i++){
             ariasHidden[i].setAttribute("aria-hidden", false);
         }
