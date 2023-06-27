@@ -198,6 +198,14 @@ function openModal() {
     for (let i=0; i<ariasHiddenLightbox.length; i++){
         ariasHiddenLightbox[i].setAttribute("aria-hidden", true);
     }
+    document.body.addEventListener("keyup", (e) => {
+        if (e.keyCode == 37 || e.key == "ArrowLeft"){
+            plusSlides(-1);
+        }
+        else if (e.keyCode == 39 || e.key == "ArrowRigh"){
+            plusSlides(1);
+        }
+    });
 }
 
 function closeModal() {
@@ -209,24 +217,13 @@ function closeModal() {
     }
 }
 
-var prev = document.querySelector('.prev');
-var next = document.querySelector('.next');
-
-document.getElementById("myModal").addEventListener("keyup", (e) => {
-    console.log(e.target);
-     if (e.keyCode == 37){
-        console.log("précédent");
-        plusSlides(-1);
+document.body.addEventListener("keyup", (e) =>{
+    if(e.keycode == 27 || e.key == "Escape"){
+        closeModal();
     }
-    else if (e.keyCode == 39){
-        plusSlides(1);
-        console.log("suivant");
-     }
-})
-  
+});
+
 function plusSlides(n) {
-    console.log("via click");
-    // console.log(e.target);
     showSlides(slideIndex += n);
 }
   
