@@ -17,14 +17,24 @@ const details = document.querySelector('.photograph-details');
 
 let ariasHidden = [headerMain, photograph, dropdown, galeryPhotograph, details];
 
+function setAriaHiddenTrue(){
+    for (let i=0; i<ariasHidden.length; i++){
+        ariasHidden[i].setAttribute("aria-hidden", true);
+    }
+}
+
+function setAriaHiddenFalse(){
+    for (let i=0; i<ariasHidden.length; i++){
+        ariasHidden[i].setAttribute("aria-hidden", false);
+    }
+}
+
 openForm.addEventListener("click", () => {
     modal.showModal();
     modal.style.display = "flex";
     modal.setAttribute("aria-hidden", false);
     document.body.style.overflow = 'hidden';
-    for (let i=0; i<ariasHidden.length; i++){
-        ariasHidden[i].setAttribute("aria-hidden", true);
-    }
+    setAriaHiddenTrue();
 })
 
 function closeContactForm(){
@@ -32,9 +42,7 @@ function closeContactForm(){
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", true);
     document.body.style.overflow = 'scroll';
-    for (let i=0; i<ariasHidden.length; i++){
-        ariasHidden[i].setAttribute("aria-hidden", false);
-    }
+    setAriaHiddenFalse();
 }
 
 closeForm.addEventListener("click", closeContactForm());
@@ -47,8 +55,7 @@ document.body.addEventListener("keydown", (e) => {
 
 function sendData(){
     event.preventDefault();
-    modal.close();
-    modal.style.display = "none";
+    closeContactForm();
     console.log("Envoie des données : ");
     console.log("prenom : ", prenomForm.value);
     console.log("nom : ", nomForm.value);
