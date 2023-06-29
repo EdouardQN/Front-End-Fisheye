@@ -109,7 +109,7 @@ var Video = function(type){
 }
 
 function mediaFactory(media){
-    var contentMedia, displayMedia, sample, heartIcon, nbLikes = 0;
+    var contentMedia, displayMedia, linkDisplayMedia, sample, heartIcon, nbLikes = 0;
     var tabMedia= [], headingMedia = [], spanMedia = [];
     var factory = new Factory();
 
@@ -124,6 +124,7 @@ function mediaFactory(media){
             heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
             div[i] = document.createElement('div');
             tabMedia.push(factory.createMedia(media[i]));
+            linkDisplayMedia = document.createElement('a');
 
             if (tabMedia[i].hasOwnProperty('image')){
                 contentMedia = tabMedia[i].image;
@@ -148,7 +149,8 @@ function mediaFactory(media){
             divMediaDetails[i].appendChild(headingMedia[i]);
             divMediaDetails[i].appendChild(spanMedia[i]);
             divMediaDetails[i].append(heartIcon);
-            div[i].appendChild(displayMedia);
+            div[i].setAttribute("tabindex", 0);
+            div[i].appendChild(displayMedia); 
             div[i].append(divMediaDetails[i]);
             nbLikes += media[i].likes;
         }
@@ -168,7 +170,6 @@ function getLightboxDom(mediaDom){
     let src, mediaLightbox;
     let divLightbox = [];
     for (let i=0; i<mediaDom.length; i++){
-
         divLightbox[i] = document.createElement('div');
         divLightbox[i].classList.add('mySlides');
 
@@ -272,8 +273,8 @@ async function init(){
     const data = await getPhotographer();
     //Récupération données photographe / ses médias, séparés en 2 tableaux d'objects
     const photographerContent = getPhotographerContent(data);
-    userMediaDisplay = photographerContent[1]; // mettre ailleurs ?
     const photographerMedia = getPhotographerMedia(data);
+    userMediaDisplay = photographerContent[1];
     //factory functions qui utilisent leur tableau correspondant au dessus
     const photographerModel = photographerFactory(photographerContent);
     let mediaModel = mediaFactory(photographerMedia);

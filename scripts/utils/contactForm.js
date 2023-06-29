@@ -1,5 +1,5 @@
 // Form
-const modal = document.querySelector('.modal-form');
+const modalForm = document.querySelector('.modal-form');
 const form = document.querySelector('.contactForm');
 const openForm = document.querySelector('.contact_button');
 const closeForm = document.querySelector('.close_modal');
@@ -30,25 +30,25 @@ function setAriaHiddenFalse(){
 }
 
 openForm.addEventListener("click", () => {
-    modal.showModal();
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", false);
+    modalForm.showModal();
+    modalForm.style.display = "flex";
+    modalForm.setAttribute("aria-hidden", false);
     document.body.style.overflow = 'hidden';
     setAriaHiddenTrue();
 })
 
 function closeContactForm(){
-    modal.close();
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", true);
+    modalForm.close();
+    modalForm.style.display = "none";
+    modalForm.setAttribute("aria-hidden", true);
     document.body.style.overflow = 'scroll';
     setAriaHiddenFalse();
 }
 
-closeForm.addEventListener("click", closeContactForm());
+closeForm.addEventListener("click", closeContactForm);
 
 document.body.addEventListener("keydown", (e) => {
-    if (e.keyCode == 27){
+    if (e.keyCode == 27 || e.key == "Escape"){
         closeContactForm();
     }
 })

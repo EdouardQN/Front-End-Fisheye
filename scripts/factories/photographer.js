@@ -17,6 +17,7 @@ function photographerFactory(data) {
         const link = document.createElement('a');
         link.href = 'photographer.html';
         link.href += `?id=${id}`;
+        link.setAttribute("tabindex", 0);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
 
