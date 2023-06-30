@@ -306,7 +306,14 @@ async function init(){
                 likesDom.innerText++;
                 event.target.classList.add('media_liked');
             }
-        })           
+        })    
+        //Enter command for Lightbox
+        mediaCardDom[i].addEventListener("keyup", (e) => {
+            if (e.keyCode == 13 || e.key == "Enter"){
+                openModal();
+                currentSlide(i);
+            }
+        });         
     }
 
     //Sort
@@ -349,8 +356,6 @@ async function init(){
             galery.append(mediaCardDom[i]);
         }         
     })
-    showSlides(slideIndex);
-
 }
 
 init();

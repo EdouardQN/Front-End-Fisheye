@@ -58,10 +58,11 @@
 
 .dropdown-container,
 .dropdown-container:hover .dropdown-content,
-.dropdown-container:focus .dropdown-content{
+.dropdown-container:focus-within .dropdown-content{
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
+    padding: 16px 0;
 }
 
 .dropdown-content{
@@ -90,12 +91,10 @@
     cursor: pointer;
 }
 
-.dropdown-container button:first-child,
+/* .dropdown-container button:first-child,
 .dropdown-content button:first-child{
-    height: 100%;
-    background-color: #901C1C;
     border-bottom: 1px solid #FAFAFA;
-}
+} */
 
 .drop-icon{
     position: absolute;
@@ -114,6 +113,22 @@
     color: #FAFAFA;
     border: none;
     text-align: start;
+}
+
+.dropdown-popularity,
+.dropdown-date{
+    position: relative;
+}
+
+.dropdown-popularity::after,
+.dropdown-date::after{
+    content: '';
+    position: absolute;
+    top: 34px;
+    left: 4px;
+    width: 100%;
+    height: 1px;
+    background-color: #FAFAFA;
 }
 
 /* Photographer galery */
