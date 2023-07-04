@@ -1,0 +1,29 @@
+{
+    "root": true,
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "parser": "babel-eslint"
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "rules": {
+        "eqeqeq": "warn",
+        "indent": "off",
+        "no-unused-vars": "off",
+        "multiline-ternary": ["warn", "always-multiline"]
+    },
+    "globals": {
+      "photographerFactory": "readonly"
+    },
+    "extends": [
+      "eslint:recommended"
+    ]
+    
+}
+  
+
+    
+

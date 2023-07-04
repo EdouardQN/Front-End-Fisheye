@@ -11,7 +11,7 @@ async function getPhotographer(){
 function getPhotographerContent(json){
     let contenuPhotographer = []; 
     for (let i =0; i<json.photographers.length; i++){
-        if (json.photographers[i].id == photographerId){
+        if (json.photographers[i].id === parseInt(photographerId)){
             contenuPhotographer.push(photographerId);
             contenuPhotographer.push(json.photographers[i].name);
             contenuPhotographer.push(json.photographers[i].city);
@@ -28,14 +28,13 @@ function getPhotographerMedia(json){
     let x = 0;
     let contenuMedia = [];
     for (let j = 0; j<json.media.length; j++){
-        if (json.media[j].photographerId == photographerId){
+        if (json.media[j].photographerId === parseInt(photographerId)){
             contenuMedia[x] = json.media[j];
             x++;
         }
     }
     return contenuMedia;
 }
-
 function photographerFactory(content){
     const id = content[0];
     const name = content[1];   
@@ -85,10 +84,10 @@ function photographerFactory(content){
 var Factory = function(){
     this.createMedia = function (json){
         var createMedia;
-        if (json.hasOwnProperty('image')){
+        if (Object.prototype.hasOwnProperty.call(json, 'image')){
             createMedia = new Image(json.image);
         }
-        else if (json.hasOwnProperty('video')){
+        else if (Object.prototype.hasOwnProperty.call(json, 'video')){
             createMedia = new Video(json.video);
         }
         createMedia.date = json.date;
@@ -109,7 +108,7 @@ var Video = function(type){
 }
 
 function mediaFactory(media){
-    var contentMedia, displayMedia, linkDisplayMedia, sample, heartIcon, nbLikes = 0;
+    var contentMedia, displayMedia, sample, heartIcon, nbLikes = 0;
     var tabMedia= [], headingMedia = [], spanMedia = [];
     var factory = new Factory();
 
@@ -124,14 +123,12 @@ function mediaFactory(media){
             heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
             div[i] = document.createElement('div');
             tabMedia.push(factory.createMedia(media[i]));
-            linkDisplayMedia = document.createElement('a');
-
-            if (tabMedia[i].hasOwnProperty('image')){
+            if (Object.prototype.hasOwnProperty.call(tabMedia[i], 'image')){
                 contentMedia = tabMedia[i].image;
                 displayMedia = document.createElement('img');
                 div[i].classList.add('photograph-image');
             }
-            else if (tabMedia[i].hasOwnProperty('video')){
+            else if (Object.prototype.hasOwnProperty.call(tabMedia[i], 'video')){
                 contentMedia = tabMedia[i].video;
                 displayMedia = document.createElement('video');
                 displayMedia.setAttribute('controls', '');
@@ -200,10 +197,10 @@ function openModal() {
         ariasHiddenLightbox[i].setAttribute("aria-hidden", true);
     }
     document.body.addEventListener("keyup", (e) => {
-        if (e.keyCode == 37 || e.key == "ArrowLeft"){
+        if (e.keyCode === 37 || e.key === "ArrowLeft"){
             plusSlides(-1);
         }
-        else if (e.keyCode == 39 || e.key == "ArrowRigh"){
+        else if (e.keyCode === 39 || e.key === "ArrowRigh"){
             plusSlides(1);
         }
     });
@@ -219,7 +216,7 @@ function closeModal() {
 }
 
 document.body.addEventListener("keyup", (e) =>{
-    if(e.keycode == 27 || e.key == "Escape"){
+    if(e.keycode === 27 || e.key === "Escape"){
         closeModal();
     }
 });
@@ -260,7 +257,6 @@ const headerMainL = document.querySelector('.header-main');
 const galery = document.querySelector('.photograph-galery');
 const detailsPhotograph = document.querySelector('.photograph-details');
 const dropdownGroup = document.querySelector('.dropdown-sort');
-const dropDown = document.querySelector('.dropdown-container');
 const dropPopularity = document.querySelector('.dropdown-popularity');
 const dropDate = document.querySelector('.dropdown-date');
 const dropTitle = document.querySelector('.dropdown-title');
@@ -309,7 +305,7 @@ async function init(){
         })    
         //Enter command for Lightbox
         mediaCardDom[i].addEventListener("keyup", (e) => {
-            if (e.keyCode == 13 || e.key == "Enter"){
+            if (e.keyCode === 13 || e.key === "Enter"){
                 openModal();
                 currentSlide(i);
             }

@@ -3,7 +3,6 @@ const modalForm = document.querySelector('.modal-form');
 const form = document.querySelector('.contactForm');
 const openForm = document.querySelector('.contact_button');
 const closeForm = document.querySelector('.close_modal');
-const submitModal = document.querySelector('.submit_button');
 const prenomForm = document.querySelector('#prenom');
 const nomForm = document.querySelector('#nom');
 const emailForm = document.querySelector('#email');
@@ -48,7 +47,7 @@ function closeContactForm(){
 closeForm.addEventListener("click", closeContactForm);
 
 document.body.addEventListener("keydown", (e) => {
-    if (e.keyCode == 27 || e.key == "Escape"){
+    if (e.keyCode === 27 || e.key === "Escape"){
         closeContactForm();
     }
 })

@@ -1,18 +1,17 @@
 function photographerFactory(data) {
 
-        const name = data.name;
-        const id = data.id;
-        const portrait = data.portrait;
-        const picture = `../../assets/photographers/${portrait}`;
-        const city = data.city;
-        const country = data.country;
-        const tagline = data.tagline;
-        const price = data.price;
+    const name = data.name;
+    const id = data.id;
+    const portrait = data.portrait;
+    const picture = `../../assets/photographers/${portrait}`;
+    const city = data.city;
+    const country = data.country;
+    const tagline = data.tagline;
+    const price = data.price;
 
     function getUserCardDOM() {
     
-        const article = document.createElement( 'article' );
-
+        const article = document.createElement('article');
         const blocPortrait = document.createDocumentFragment();
         const link = document.createElement('a');
         link.href = 'photographer.html';
@@ -22,8 +21,7 @@ function photographerFactory(data) {
         img.setAttribute("src", picture);
 
         // Block portrait permet de mettre un a avec l'img dedans pour la redirection vers la page du photographe
-        const blocContent = blocPortrait.appendChild(link)
-                                        .appendChild(img);
+        blocPortrait.appendChild(link).appendChild(img);
 
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
