@@ -82,19 +82,26 @@ function photographerFactory(content){
 }
 
 var Factory = function(){
-    this.createMedia = function (json){
+    let typeMedia;
+    this.createMedia = function (json, div){
         var createMedia;
         if (Object.prototype.hasOwnProperty.call(json, 'image')){
             createMedia = new Image(json.image);
+            typeMedia = 'img';
+            div.classList.add('photograph-image');
         }
         else if (Object.prototype.hasOwnProperty.call(json, 'video')){
             createMedia = new Video(json.video);
+            typeMedia = 'video';
+            div.classList.add('photograph-video');
+
         }
         createMedia.date = json.date;
         createMedia.likes = json.likes;
         createMedia.photographerid = json.photographerId;
         createMedia.price = json.price;
         createMedia.title = json.title;
+        createMedia.type = typeMedia;
         return createMedia;
     }
 }
@@ -122,18 +129,13 @@ function mediaFactory(media){
             heartIcon = document.createElement('button');
             heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
             div[i] = document.createElement('div');
-            tabMedia.push(factory.createMedia(media[i]));
-            if (Object.prototype.hasOwnProperty.call(tabMedia[i], 'image')){
-                contentMedia = tabMedia[i].image;
-                displayMedia = document.createElement('img');
-                div[i].classList.add('photograph-image');
-            }
-            else if (Object.prototype.hasOwnProperty.call(tabMedia[i], 'video')){
-                contentMedia = tabMedia[i].video;
-                displayMedia = document.createElement('video');
+            tabMedia.push(factory.createMedia(media[i], div[i]));
+            contentMedia = tabMedia[i].image;
+            displayMedia = document.createElement(tabMedia[i].type);
+            if (tabMedia[i].type === "video"){
                 displayMedia.setAttribute('controls', '');
-                div[i].classList.add('photograph-video');
-            }            
+                contentMedia = tabMedia[i].video;
+            }
             sample = `../../assets/samples/${userMediaDisplay}/${contentMedia}`;
             headingMedia[i].innerText = tabMedia[i].title;
             spanMedia[i].innerText = tabMedia[i].likes;
