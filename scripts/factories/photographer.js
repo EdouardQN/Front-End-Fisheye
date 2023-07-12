@@ -19,6 +19,7 @@ function photographerFactory(data) {
         link.setAttribute("tabindex", 0);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
+        img.setAttribute("alt", `${name} picture profile`);
 
         // Block portrait permet de mettre un a avec l'img dedans pour la redirection vers la page du photographe
         blocPortrait.appendChild(link).appendChild(img);

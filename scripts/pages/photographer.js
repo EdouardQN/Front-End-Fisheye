@@ -130,11 +130,13 @@ function mediaFactory(media){
             heartIcon.innerHTML = `<ion-icon name="heart"></ion-icon>`;
             div[i] = document.createElement('div');
             tabMedia.push(factory.createMedia(media[i], div[i]));
-            contentMedia = tabMedia[i].image;
             displayMedia = document.createElement(tabMedia[i].type);
             if (tabMedia[i].type === "video"){
-                displayMedia.setAttribute('controls', '');
                 contentMedia = tabMedia[i].video;
+            }
+            else{
+                contentMedia = tabMedia[i].image;
+
             }
             sample = `../../assets/samples/${userMediaDisplay}/${contentMedia}`;
             headingMedia[i].innerText = tabMedia[i].title;
@@ -171,17 +173,15 @@ function getLightboxDom(mediaDom){
     for (let i=0; i<mediaDom.length; i++){
         divLightbox[i] = document.createElement('div');
         divLightbox[i].classList.add('mySlides');
-
-        if (mediaDom[i].firstChild.hasAttribute('controls')){
-            src = mediaDom[i].firstChild.attributes[1].value;
+        if (mediaDom[i].className === "photograph-video"){
             mediaLightbox = document.createElement('video');
             mediaLightbox.setAttribute('controls', '');
         }
         else{
-            src = mediaDom[i].firstChild.attributes[0].value;
             mediaLightbox = document.createElement('img');
 
         }
+        src = mediaDom[i].firstChild.attributes[0].value;
         mediaLightbox.classList.add('media_inside');
         mediaLightbox.setAttribute('src', src);
         mediaLightbox.setAttribute('alt', `${mediaDom[i].children[1].children[0].innerText} media lightbox`);
@@ -231,7 +231,7 @@ function currentSlide(n) {
     showSlides(slideIndex = n);
 }
 
-var slideIndex = 1;
+var slideIndex = 0;
 
 function showSlides(n) {
     var i;
@@ -292,12 +292,10 @@ async function init(){
         lightbox.append(lightboxDom[i]);
         let btnLike = mediaCardDom[i].children[1].lastChild;
         btnLike.addEventListener("click", (event) => {
-
             if (event.target.classList.contains('media_liked')){
                 mediaCardDom[i].children[1].childNodes[1].innerText--;
                 likesDom.innerText--;
                 event.target.classList.remove('media_liked');
-
             }
             else{
                 mediaCardDom[i].children[1].childNodes[1].innerText++;
